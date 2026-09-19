@@ -4,3 +4,44 @@ author: "Xieyu Liu"
 date: "2026-09-19"
 output: github_document
 ---
+# Problem1
+
+```{r}
+data("penguins", package = "palmerpenguins")
+```
+The `penguins` dataset contains information on penguins, including species, island, bill length, bill depth, flipper length, body mass, sex, and year.
+
+The dataset has `r nrow(penguins)` rows and `r ncol(penguins)` columns.
+
+The mean flipper length is `r mean(penguins$flipper_length_mm, na.rm=T)` mm.
+
+```{r}
+library(ggplot2)
+penguin_plot <- ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm,  color = species)) + geom_point()
+penguin_plot
+ggsave("penguins_scatterplot.png", plot = penguin_plot)
+```
+
+# Problem2
+
+```{r}
+library(tidyverse)
+df = tibble(
+  vec_numeric = rnorm(10),
+  vec_logical = vec_numeric > 0,
+  vec_char = c("a","b","c","d","e","f","g","h","i","j"),
+  vec_factor = factor(c("A","B","C","C","B","A","A","B","C","C"))
+)
+mean(pull(df, vec_numeric))
+mean(pull(df, vec_logical))
+mean(pull(df, vec_char))
+mean(pull(df, vec_factor))
+```
+Numeric and logical vectors can be used to calculate the mean, while character and factor vectors cannot.
+
+```{r eval=FALSE}
+as.numeric(df$vec_logical)
+as.numeric(df$vec_char)
+as.numeric(df$vec_factor)
+```
+Logical and factor vectors can be converted to numeric vectors, while character vectors cannot. R treats `TRUE` as 1 and `FALSE` as 0, which explains why the mean of the logical vector can be calculated. A factor can be converted to numeric values, but `as.numeric()` returns its internal level codes rather than meaningful numeric values.
