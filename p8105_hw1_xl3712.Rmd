@@ -1,0 +1,6 @@
+---
+title: "p8105 homework1"
+author: "Xieyu Liu"
+date: "2026-09-19"
+output: github_document
+---
